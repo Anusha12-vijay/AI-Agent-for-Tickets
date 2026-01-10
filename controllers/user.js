@@ -74,7 +74,6 @@ export const logout =async(req,res) =>{
   }
 }
 
-
 export const updateUser =async (req,res) =>{
   const { skills = [],role,email}=req.body
   try{
@@ -90,6 +89,20 @@ export const updateUser =async (req,res) =>{
     )
     return res.json({message:"User updated successfully"})
   }catch(error){
+    res.status(500).json({ error: "Update failed",details: error.message});
 
   }
+};
+
+export const getUser = async (req,res) =>{
+  try{
+    if(req.user.role !== "admin"){
+      return res.status(403).json({error:"Forbidden"})
+    }
+    const user= await User.find().select("-password")
+    return res.json(user)
+  }catch(error){
+    res.status(500).json({ error: "Fetch failed",details: error.message});
+
+}
 }
