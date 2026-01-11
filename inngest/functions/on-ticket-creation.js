@@ -71,9 +71,8 @@ export const onTicketCreated = inngest.createFunction(
                     const finalTicket = await Ticket.findById(ticket._id)
                     await sendMail(
                         moderator.email,
-                        "Ticket Assigned"
-                        `A new ticket is assigned to you $
-                        {finalTicket.title}`
+                        "Ticket Assigned",
+                        `A new ticket is assigned to you: ${finalTicket.title}`
                     )
                 }
             })
