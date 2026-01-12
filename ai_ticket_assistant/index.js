@@ -1,5 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
+
+import "./env.js";
+// import dotenv from 'dotenv';
+// dotenv.config();
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
@@ -26,6 +28,7 @@ app.use(
     })
 
 );
+
 
 
 mongoose

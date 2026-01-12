@@ -8,6 +8,8 @@ import TicketDetails from './pages/ticket.jsx'
 import Signup from './pages/signup.jsx'
 import Admin from './pages/admin.jsx'
 import Login from './pages/login.jsx'
+import Layout from "./components/Layout.jsx";
+
 
 
 createRoot(document.getElementById('root')).render(
@@ -17,8 +19,11 @@ createRoot(document.getElementById('root')).render(
       <Route
       path='/'
       element={
-        <CheckAuth protected={true}>
-          <Tickets />
+        <CheckAuth protectedRoute={true}>
+          <Layout>
+<Tickets />
+          </Layout>
+          
 
         </CheckAuth>
       }
@@ -26,36 +31,46 @@ createRoot(document.getElementById('root')).render(
        <Route
       path='/tickets/:id'
       element={
-        <CheckAuth protected={true}>
-          <TicketDetails />
+        <CheckAuth protectedRoute={true}>
+          <Layout>
+<TicketDetails />
+          </Layout>
+          
 
         </CheckAuth>
       }
       />
        <Route
-      path='/signup'
-      element={
-        <CheckAuth protected={false}>
-          <Signup />
+  path="/signup"
+  element={
+    <CheckAuth protectedRoute={false}>
+      <Layout>
+        <Signup />
+      </Layout>
+    </CheckAuth>
+  }
+/>
 
-        </CheckAuth>
-      }
-      />
-             <Route
-      path='/login'
-      element={
-        <CheckAuth protected={false}>
-          <Login />
+<Route
+  path="/login"
+  element={
+    <CheckAuth protectedRoute={false}>
+      <Layout>
+        <Login />
+      </Layout>
+    </CheckAuth>
+  }
+/>
 
-        </CheckAuth>
-      }
-      />
       
        <Route
       path='/admin'
       element={
-        <CheckAuth protected={true}>
-          <Admin />
+        <CheckAuth protectedRoute={true}>
+          <Layout>
+            <Admin />
+          </Layout>
+          
 
         </CheckAuth>
       }

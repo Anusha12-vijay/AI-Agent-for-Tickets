@@ -14,19 +14,38 @@ export const createticket = async(req,res)=>{
             createdBy:req.user._id.toString()
 
         })
-        await inngest.send({
-            name:"ticket/created",
-            data:{
-                ticketId:(await newTicket)._id.toString(),
-                title,
-                description,
-                createdBy: req.user._id.toString()
-            }
-        });
+        // await inngest.send({
+        //     name:"ticket/created",
+        //     data:{
+        //         ticketId:(await newTicket)._id.toString(),
+        //         title,
+        //         description,
+        //         createdBy: req.user._id.toString()
+        //     }
+        // });
+        try {
+  await inngest.send({
+    name: "ticket/created",
+    data: {
+      ticketId: newTicket._id.toString(),
+      title,
+      description,
+      createdBy: req.user._id.toString(),
+    },
+  });
+} catch (err) {
+  console.error("⚠️ Inngest failed, ticket still created:", err.message);
+}
+
+        // return res.status(201).json({
+        //     message:"Ticket created and processing started",
+        //     ticket:newTicket
+        // })
         return res.status(201).json({
-            message:"Ticket created and processing started",
-            ticket:newTicket
-        })
+  message: "Ticket created",
+  ticket: newTicket,
+});
+
 
 
 
@@ -85,3 +104,20 @@ export const getTicket =async(req,res)=>{
 
     }
 }
+export const deleteTicket = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const ticket = await Ticket.findById(id);
+
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+
+    await Ticket.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Ticket deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete ticket" });
+  }
+};

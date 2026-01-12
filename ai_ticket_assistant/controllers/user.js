@@ -106,3 +106,32 @@ export const getUser = async (req,res) =>{
 
 }
 }
+export const deleteUser = async (req, res) => {
+  try {
+    const userIdToDelete = req.params.id;
+
+    // ❌ prevent deleting self
+    if (req.user._id === userIdToDelete) {
+      return res.status(400).json({ message: "You cannot delete yourself" });
+    }
+
+    const user = await User.findById(userIdToDelete);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // ❌ prevent deleting admin
+    if (user.role === "admin") {
+      return res.status(403).json({ message: "Cannot delete another admin" });
+    }
+
+    await User.findByIdAndDelete(userIdToDelete);
+
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("Delete user error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
