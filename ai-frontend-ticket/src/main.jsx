@@ -10,6 +10,7 @@ import Admin from './pages/admin.jsx'
 import Login from './pages/login.jsx'
 import Layout from "./components/Layout.jsx";
 import ModeratorTickets from "./pages/moderator_tickets.jsx";
+import Landing from './pages/Landing.jsx';
 
 
 
@@ -18,6 +19,13 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
     <Routes>
+      <Route
+  path="/landing"
+  element={
+    <Landing />
+  }
+/>
+
       <Route
       path='/'
       element={
@@ -30,6 +38,7 @@ createRoot(document.getElementById('root')).render(
         </CheckAuth>
       }
       />
+      
        <Route
       path='/tickets/:id'
       element={
