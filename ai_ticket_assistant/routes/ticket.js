@@ -1,40 +1,3 @@
-// import express from "express"
-// import {authenticate, authorizeModerator} from "../middlewares/auth.js"
-// import { createticket, getTicket, getTickets } from "../controllers/ticket.js"
-// import { deleteTicket } from "../controllers/ticket.js";
-// import { authorizeAdmin } from "../middlewares/auth.js";
-// // import { getAssignedTickets } from "../controllers/ticket.js";
-
-
-
-
-
-// const router =express.Router()
-
-// /* 🔥 PLACE THIS FIRST */
-// router.get(
-//   "/my",
-//   authenticate,
-//   authorizeModerator,
-//   async (req, res) => {
-//     const tickets = await Ticket.find({
-//       assignedTo: req.user.email,
-//     }).sort({ createdAt: -1 });
-
-//     res.json(tickets);
-//   }
-// );
-
-// router.get("/",authenticate,getTickets)
-// router.get("/:id",authenticate,getTicket)
-// router.post("/",authenticate,createticket);
-
-
-
-// router.delete("/:id", authenticate, authorizeAdmin, deleteTicket);
-
-
-// export default router
 
 import express from "express";
 import Ticket from "../models/ticket.js";
@@ -46,6 +9,8 @@ import {
   getTickets,
   deleteTicket,
 } from "../controllers/ticket.js";
+import { updateTicketStatus } from "../controllers/ticket.js";
+
 
 const router = express.Router();
 
@@ -79,6 +44,15 @@ router.get(
  * - user: only their tickets
  */
 router.get("/", authenticate, getTickets);
+/**
+ * 🔹 UPDATE ticket status (moderator/admin)
+ */
+router.patch(
+  "/:id/status",
+  authenticate,
+  authorizeModerator,
+  updateTicketStatus
+);
 
 /**
  * 🔹 GET single ticket by ID
