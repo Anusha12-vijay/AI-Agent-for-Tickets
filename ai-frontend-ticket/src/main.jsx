@@ -9,6 +9,8 @@ import Signup from './pages/signup.jsx'
 import Admin from './pages/admin.jsx'
 import Login from './pages/login.jsx'
 import Layout from "./components/Layout.jsx";
+import ModeratorTickets from "./pages/moderator_tickets.jsx";
+
 
 
 
@@ -75,6 +77,17 @@ createRoot(document.getElementById('root')).render(
         </CheckAuth>
       }
       />
+      <Route
+  path="/moderator/tickets"
+  element={
+    <CheckAuth protectedRoute={true}>
+      <Layout>
+        <ModeratorTickets />
+      </Layout>
+    </CheckAuth>
+  }
+/>
+
     </Routes>
     </BrowserRouter>
   </StrictMode>,

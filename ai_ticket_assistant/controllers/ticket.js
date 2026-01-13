@@ -121,3 +121,18 @@ export const deleteTicket = async (req, res) => {
     res.status(500).json({ message: "Failed to delete ticket" });
   }
 };
+
+export const getAssignedTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.find({
+      assignedTo: req.user._id,
+    })
+      .populate("assignedTo", ["email"])
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(tickets);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
