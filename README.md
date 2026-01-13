@@ -1,6 +1,11 @@
 🤖 AI-Powered Ticket Management System
 
-A **smart, event-driven ticket management system** that uses **hybrid AI decision-making** to automatically categorize, prioritize, and route support tickets — while also giving **instant AI suggestions to users** at ticket creation time.
+A full-stack ticket management system that uses a hybrid AI + rule-based approach to automatically
+categorize, prioritize, and route support tickets to the most suitable moderators.
+
+The system is designed with security, scalability, and automation in mind, using event-driven
+background processing and role-based access control.
+
 
 ## 🚀 Why This Project?
 
